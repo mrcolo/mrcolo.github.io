@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="gr__zsiegel92_github_io" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>techLab | Third Meet Up</title>
+    <meta property="og:title" content="techLab First Lesson">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="First Lesson for techLab">
+    <meta property="og:description" content="First Lesson for techLab">
+    <link rel="canonical" href="https://mrcolo.github.io/">
+    <meta property="og:url" content="https://mrcolo.github.io/">
+    <meta property="og:site_name" content="mrcolo">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+  </head>
+  <body onload="prettyPrint()">
+    <div class="container-lg px-3 my-5 markdown-body">
+      <h1><a href="https://mrcolo.github.io/"> techLab </a>- 3rd Lesson</h1>
+      <hr>
+      <h2>Welcome Back!</h2>
+      <p>In this lesson, we are gonna introduce Node.js.</p>
+      <p>Node.js is a JavaScript runtime built on Chrome's V8 Javascript Engine.</p>
+      <p>In English, this means that it allows us to input something and output something in return.</p>
+      <p>Generally speaking, we are gonna be using it to set up our first backend.</p>
+      <hr>
+      <h3>What's a Back End?</h3>
+      <p>The website that we created in the second lesson represents the presentation layer, meaning whatever the user sees.</p>
+      <p>Now, whenever we are gonna access data to be displayed in our website, we will need to set up a data access layer. That's our backend.</p>
+      <hr>
+      <h3>Installation:</h3>
+      <ol>
+        <li>Click <a href="https://nodejs.org/en/download/">Here</a> and download the version that fits the best with your OS.
+        <li>Install. ;)
+        <li>Create a .js file that says:
+          <pre class="prettyprint">console.log("Hello Node World!");</pre>
+        <li>Go to your terminal and type to run:
+          <pre class="prettyprint">node MYFILE.js</pre>
+      </ol>
+    <hr>
+
+<h1 id="important-info">Alright, we installed Node. Now, let's see what we can do with it.</h1>
+<hr>
+  <p>The one below is a good example of a server. Let's take a look at the code.</p>
+<iframe height="400px" width="100%" src="https://repl.it/@mrcolo97/AmusedCyanFibonacci?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<hr>
+<p>The first line, requests the module <code>http</code> from a package manager called <code>npm</code> (a.k.a. Node Package Manager) </p>
+<p>We request modules to allow Node to do more and more things. This, for example, allows us to initialize a server.</p>
+<pre class="prettyprint">var http = require('http');</pre>
+<hr>
+<p>The following code is a little more specific.</p>
+<pre class="prettyprint">
+  http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello World!');
+}).listen(8080);</pre>
+<hr>
+<p>Let's analyze it in small blocks.</p>
+<pre class="prettyprint">
+  http.createServer(function (req, res) {})
+</pre>
+<p>In here, using the var assigned to the module <code>http</code> that we created above, we are asking Node to create a server.</p>
+<p>Whenever we create a server, we need a <code>request</code> and a <code>response</code>. We will analyze this concept further in the next lesson.</p>
+<p>Think of this as a normal function. We are inputting something (a <code>request</code>) to get something in return (a <code>response</code>). </p>
+<hr>
+<p>This line below defines the header of the response. No matter what input we use, our response has to carry many things with it. </p>
+<pre class="prettyprint">res.writeHead(200, {'Content-Type': 'text/plain'});</pre>
+<hr>
+<p>This line then, defines the end of the response. A response <b>HAS TO</b> have an end. </p>
+<pre class="prettyprint">res.end('Hello World!');</pre>
+<hr>
+<p>Last but not least, with the method <code>listen</code>, we are asking node to make that server available for us at port <code>8080</code>.</p>
+<pre class="prettyprint">http.createServer(function (req, res) {
+  //our code
+}).listen(8080)</pre>
+<p>The user does not see anything in our backend. We can prove this by using a <pre class="prettyprint">console.log("Stuff");</pre> and noticing that it does not appear in the console of our webpage, but only in the console of the environment we are developing in.</p>
+
+<hr>
+<h3 id="suggested-download-sublimetext">Well, we are not done.</h3>
+<hr>
+<p>Let's try to setup our first website locally using the server that we just created.</p>
+<hr>
+<p>To do so, we are gonna be using a method of <code>res</code>, which is:</p>
+
+<pre class="prettyprint">res.write("data.html");</pre>
+<hr>
+<h3>Let's start.</h3>
+<ol>
+  <li>Download your website locally and put it in the folder where you created the server (or in the <code>repl.it</code> library.)
+  <li>Go to your server's folder.
+    <ul>
+      <li> Right after the var <code>http</code>, write:
+        <pre class="prettyprint">var fs = require('fs');</pre>
+        This allows us to use a file stream to have access to our html file.
+      </li>
+      <li> now, enclose the whole response in a function called <code>fs.readFile</code>, which will be written as a response of our server.
+        <pre class="prettyprint">fs.readFile('index.html', function(err, data) {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write(data);
+            res.end();
+          });</pre>
+      </li>
+    <ul/>
+  <li>Done. Let's look at the code with a more specific approach.
+</ol>
+<hr>
+
+<p>The first line, as mentioned above, will call a method that accesses our file <code>index.html</code> and refers to it in the second parameter.</p>
+<p>This function has two arguments, <code>err</code> and <code>data</code>.</p>
+<p><code>err</code> is different than null every time something doesn't work out in our function.</p>
+<p><code>data</code> is the reference of our file in the actual function.</p>
+
+<hr>
+<p>The header of our response looks a bit different too. Rather than describing it as <code>plain text</code>, we are defining it as <code>html text</code>.</p>
+<pre class="prettyprint">res.writeHead(200, {'Content-Type': 'text/html'});</pre>
+<hr>
+<p>Finally, the method <code>res.write("something");</code> returns to the webpage whatever we pass in between the parenthesis (in this case, our HTML file, referred to as data!)</p>
+<pre class="prettyprint">res.write(data);</pre>
+<hr>
+<p>Of course, we still have to end the request. </p>
+<pre class="prettyprint">res.end();</pre>
+<hr>
+<p>If you are developing on your own laptop, run the code and go <a href="http://localhost:8080">Here</a>. It should work!</p>
+<hr>
+<p>Here's a working example.</p>
+<iframe height="400px" width="100%" src="https://repl.it/@mrcolo97/LameHiddenCommunication?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<p> This is a good time to start developing your own code, so try not to copy mine.</p>
+<hr>
+  <h1>All done. Did it hurt?</h1>
+  <hr>
+  <p>This is what we learnt, so far, today.</p>
+  <ul>
+    <li>What a Backend is.
+    <li>How to use Node.JS
+    <li>How to write our first server, with it.
+    <li>How to host our webpage on our server.
+  </ul>
+    <hr>
+    <h1>Take Away Project 🌮🌮</h1>
+    <hr>
+    <p>Display an alert (<b>IN YOUR SERVER!</b>) that will write <code>Hello, my name is <kbd>YOURNAME</kbd> and today is <kbd>TODAYSDATE</kbd></code>.
+    <p> This has to happen every time you reload the webpage. you should have a var <code>name</code> and another var <code>todayIs</code> to deal with the two objects. </p>
+</div>
+</body></html>
