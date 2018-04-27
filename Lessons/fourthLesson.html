@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="gr__zsiegel92_github_io" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>techLab | Fourth Meet Up</title>
+    <meta property="og:title" content="techLab First Lesson">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="First Lesson for techLab">
+    <meta property="og:description" content="First Lesson for techLab">
+    <link rel="canonical" href="https://mrcolo.github.io/">
+    <meta property="og:url" content="https://mrcolo.github.io/">
+    <meta property="og:site_name" content="mrcolo">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+  </head>
+  <body onload="prettyPrint()">
+    <div class="container-lg px-3 my-5 markdown-body">
+      <h1><a href="https://mrcolo.github.io/"> techLab </a>- 4th Lesson</h1>
+      <hr>
+      <h2>Springbreak is over!</h2>
+      <p>Today we are gonna explore how to make different types of requests using Express.js.</p>
+      <p>Express.js is defined as being a Web Framework.</p>
+      <p>It provides us with a certain number of features for web and mobile applications.</p>
+      <hr>
+      <h3>Installation:</h3>
+      <ol>
+        <li>Create directory and cd into it.
+        <pre class="prettyprint">mkdir myapp
+cd myapp</pre>
+        </li>
+        <li>Use the command <code>npm init</code> to initialize a new npm directory in your project.
+        <li>Finally, run <code>npm install express --save</code> to install the framework.
+      </ol>
+    <hr>
+
+<h1 id="important-info">Alright, we installed Express. Now, let's see what we can do with it.</h1>
+<hr>
+  <p>The one below is a good example of a server using Express. Let's take a look at the code.</p>
+  <iframe height="400px" width="100%" src="https://repl.it/repls/FussySlategrayDesigner?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<hr>
+<p>The first three lines request the modules that we are gonna need to run our server.</p>
+<p>More specifically:</p>
+<pre class="prettyprint">var express = require('express');</pre>
+<p>requires our module express, that we installed, in a variable called <code>express</code>.</p>
+<p>This is the basement of our app, as we are gonna create a new "app" using it.</p>
+<hr>
+<pre class="prettyprint">var express = require('body-parser');</pre>
+<p>requires our module body-parser, that we installed, in a variable called <code>bodyParser</code>.</p>
+<p>This module literally parses a format called JSON from a simple string to an object, that we return after receiveing a specific request.</p>
+<hr>
+<pre class="prettyprint">var app = express();</pre>
+<p>this defines our app. This is the starting point of our server.</p>
+<hr>
+<p>The following code is a little more specific.</p>
+<hr>
+<pre class="prettyprint">
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));</pre>
+<hr>
+<p>With these two lines we are telling our server to use json as a bodyparser and to specifcally refer to only "good" requests, specifically requests that are encoded in UTF-8 only.</p>
+<p>Don't worry if this seems a little cryptic as it's just a server improvement but it's not necessary in the understanding of how an Express server works. </p>
+<hr>
+<pre class="prettyprint">
+  app.use(express.static('public'));
+</pre>
+<p>In here, our app uses the directory "public" to server "static" files such as plain html pages. With this we are just make it specific as of where our static files are at. </p>
+<hr>
+<h3 id="suggested-download-sublimetext">Now, the interesting part.</h3>
+<hr>
+<p>As mentioned in the previous lesson a server is based off of endpoints where we make requests and we get responses in return. </p>
+<hr>
+<h4>What kind of requests can we make?</h4>
+<ol>
+  <li><code>GET</code> Requests - Requests data from a specified resource
+  <li><code>POST</code> Requests - Submits data to be processed to a specified resource
+</ol>
+<hr>
+<p>The code:</p>
+<pre class="prettyprint">
+app.get('/', (req, res) => {
+	res.send('Hello Express app');
+});
+</pre>
+<p>Creates our first <code>GET</code> request. In response to the request we are sending a response back that says "Hello Express App". Pretty straight-forward. </p>
+<hr>
+<p>The code:</p>
+<pre class="prettyprint">
+app.listen(3000, () => console.log('server started'));
+</pre>
+<p>Starts our server at port <code>3000</code>.</p>
+<hr>
+<h3>What if I wanted to make a <code>POST</code> request?</h3>
+<p>The syntax is pretty similar.</p>
+<pre class="prettyprint">
+  app.post('/', function (req, res) {
+    res.send('POST request to the homepage')
+  })
+</pre>
+<hr>
+<h3>What if I wanted to host my webpage using Express?</h3>
+<p>Here's a working example. We are using <code>res.render</code> to render the HTML page that has been converted in Jade.</p>
+<p>Jade is an elegant templating engine, primarily used for server-side templating in NodeJS.</p>
+
+<iframe height="400px" width="100%" src="https://repl.it/repls/WobblyUnrulyMisrac?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<hr>
+  <h1>All done. Did it hurt?</h1>
+  <hr>
+  <p>This is what we learnt, so far, today.</p>
+  <ul>
+    <li>What Express is.
+    <li>How to use it to create our first <code>real</code> server
+    <li>What a <code>GET</code> request and a <code>POST</code> request are.
+    <li>How to host our webpage on our server, using Express this time.
+  </ul>
+    <hr>
+    <h1>Take Away Project 🌮🌮</h1>
+    <hr>
+    <p>Create four endpoints (<b>IN YOUR SERVER!</b>) that redirect you to different images. What kind of request should you use? What if we wanted to retrieve the url and the url only?</p>
+</div>
+
+</body>
+</html>
